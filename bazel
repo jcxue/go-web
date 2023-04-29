@@ -1,0 +1,17 @@
+#!/bin/bash
+
+VERSION=6.0.0
+PROJECT=$HOME/.go-web
+BASE=${PROJECT}/bazel-${VERSION}
+BAZEL=${BASE}/bin/bazel
+
+if ! [ -f "$BAZEL" ]; then
+    GIT_ROOT=$(git rev-parse --show-toplevel)
+    OS=$(uname | tr '[:upper:]' '[:lower:]')
+    ARCH=$(uname -m)
+    INSTALLER=bazel-${VERSION}-installer-${OS}-${ARCH}.sh
+    curl -L https://github.com/bazelbuild/bazel/releases/download/${VERSION}/${INSTALLER} > /tmp/${INSTALLER}
+    bash "/tmp/${INSTALLER}" --bin=$PROJECT/bin --base=${BASE}
+fi
+
+exec $BAZEL "$@"

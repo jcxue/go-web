@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package go_server.api;
+
+option go_package = "github.com/jcxue/go-server/api;api";
+
+service Hello {
+    rpc SayHello (HelloRequest) returns (HelloResponse) {}
+}
+
+message HelloRequest {
+    string name = 1;
+}
+
+message HelloResponse {
+    string message = 1;
+}
